@@ -12,11 +12,12 @@ import { samplePlans } from '@/lib/data';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import {
-  Calendar,
   CheckCircle,
   Circle,
   Clock,
+  Edit,
   Plus,
+  Trash2,
   XCircle,
 } from 'lucide-react';
 
@@ -69,12 +70,12 @@ const getPriorityText = (priority: string) => {
 };
 
 export default function PlansPage() {
-  const dailyPlans = samplePlans.filter(plan => plan.category === 'daily');
-  const weeklyPlans = samplePlans.filter(plan => plan.category === 'weekly');
-  const monthlyPlans = samplePlans.filter(plan => plan.category === 'monthly');
   const quarterlyPlans = samplePlans.filter(
     plan => plan.category === 'quarterly'
   );
+  const monthlyPlans = samplePlans.filter(plan => plan.category === 'monthly');
+  const weeklyPlans = samplePlans.filter(plan => plan.category === 'weekly');
+  const dailyPlans = samplePlans.filter(plan => plan.category === 'daily');
 
   const renderPlanCard = (plan: any) => (
     <Card key={plan.id} className="hover:shadow-md transition-shadow">
@@ -84,9 +85,21 @@ export default function PlansPage() {
             {getStatusIcon(plan.status)}
             <CardTitle className="text-base lg:text-lg">{plan.title}</CardTitle>
           </div>
-          <Badge className={getPriorityColor(plan.priority)}>
-            {getPriorityText(plan.priority)}
-          </Badge>
+          <div className="flex items-center space-x-2">
+            <Badge className={getPriorityColor(plan.priority)}>
+              {getPriorityText(plan.priority)}
+            </Badge>
+            <Button size="sm" variant="ghost">
+              <Edit className="h-4 w-4" />
+            </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-red-600 hover:text-red-700"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
         <CardDescription className="text-sm">
           {plan.description}
@@ -125,58 +138,38 @@ export default function PlansPage() {
         </Button>
       </div>
 
-      <Tabs defaultValue="daily" className="space-y-4">
+      <Tabs defaultValue="quarterly" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="daily" className="text-xs lg:text-sm">
-            일 계획
-          </TabsTrigger>
-          <TabsTrigger value="weekly" className="text-xs lg:text-sm">
-            주 계획
+          <TabsTrigger value="quarterly" className="text-xs lg:text-sm">
+            분기
           </TabsTrigger>
           <TabsTrigger value="monthly" className="text-xs lg:text-sm">
-            월 계획
+            월
           </TabsTrigger>
-          <TabsTrigger value="quarterly" className="text-xs lg:text-sm">
-            분기 계획
+          <TabsTrigger value="weekly" className="text-xs lg:text-sm">
+            주
+          </TabsTrigger>
+          <TabsTrigger value="daily" className="text-xs lg:text-sm">
+            일
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="daily" className="space-y-4">
+        <TabsContent value="quarterly" className="space-y-4">
           <div className="grid gap-4">
-            {dailyPlans.length > 0 ? (
-              dailyPlans.map(renderPlanCard)
+            {quarterlyPlans.length > 0 ? (
+              quarterlyPlans.map(renderPlanCard)
             ) : (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 일일 계획이 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />
-                    일일 계획 추가하기
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="weekly" className="space-y-4">
-          <div className="grid gap-4">
-            {weeklyPlans.length > 0 ? (
-              weeklyPlans.map(renderPlanCard)
-            ) : (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 주간 계획이 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />
-                    주간 계획 추가하기
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 분기 계획이 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      분기 계획 추가하기
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -190,35 +183,59 @@ export default function PlansPage() {
             ) : (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 월간 계획이 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />
-                    월간 계획 추가하기
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 월간 계획이 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      월간 계획 추가하기
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
           </div>
         </TabsContent>
 
-        <TabsContent value="quarterly" className="space-y-4">
+        <TabsContent value="weekly" className="space-y-4">
           <div className="grid gap-4">
-            {quarterlyPlans.length > 0 ? (
-              quarterlyPlans.map(renderPlanCard)
+            {weeklyPlans.length > 0 ? (
+              weeklyPlans.map(renderPlanCard)
             ) : (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 분기 계획이 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />
-                    분기 계획 추가하기
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 주간 계획이 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      주간 계획 추가하기
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="daily" className="space-y-4">
+          <div className="grid gap-4">
+            {dailyPlans.length > 0 ? (
+              dailyPlans.map(renderPlanCard)
+            ) : (
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-8">
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 일일 계획이 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      일일 계획 추가하기
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}

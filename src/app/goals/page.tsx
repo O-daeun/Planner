@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { sampleGoals } from '@/lib/data';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { CheckCircle, Circle, Clock, Plus, Target } from 'lucide-react';
+import { CheckCircle, Circle, Clock, Edit, Plus, Trash2 } from 'lucide-react';
 
 const getStatusIcon = (status: string) => {
   switch (status) {
@@ -77,9 +77,21 @@ export default function GoalsPage() {
             {getStatusIcon(goal.status)}
             <CardTitle className="text-base lg:text-lg">{goal.title}</CardTitle>
           </div>
-          <Badge className={getPriorityColor(goal.priority)}>
-            {getPriorityText(goal.priority)}
-          </Badge>
+          <div className="flex items-center space-x-2">
+            <Badge className={getPriorityColor(goal.priority)}>
+              {getPriorityText(goal.priority)}
+            </Badge>
+            <Button size="sm" variant="ghost">
+              <Edit className="h-4 w-4" />
+            </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-red-600 hover:text-red-700"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
         <CardDescription className="text-sm">
           {goal.description}
@@ -118,16 +130,16 @@ export default function GoalsPage() {
       <Tabs defaultValue="life" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="life" className="text-xs lg:text-sm">
-            인생 목표
+            인생목표
           </TabsTrigger>
           <TabsTrigger value="10year" className="text-xs lg:text-sm">
-            10년 목표
+            10년
           </TabsTrigger>
           <TabsTrigger value="5year" className="text-xs lg:text-sm">
-            5년 목표
+            5년
           </TabsTrigger>
           <TabsTrigger value="1year" className="text-xs lg:text-sm">
-            1년 목표
+            1년
           </TabsTrigger>
         </TabsList>
 
@@ -138,13 +150,14 @@ export default function GoalsPage() {
             ) : (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Target className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 인생 목표가 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />첫 목표 추가하기
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 인생 목표가 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />첫 목표 추가하기
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -158,14 +171,15 @@ export default function GoalsPage() {
             ) : (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Target className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 10년 목표가 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />
-                    10년 목표 추가하기
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 10년 목표가 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      10년 목표 추가하기
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -179,14 +193,15 @@ export default function GoalsPage() {
             ) : (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Target className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 5년 목표가 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />
-                    5년 목표 추가하기
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 5년 목표가 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      5년 목표 추가하기
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -200,14 +215,15 @@ export default function GoalsPage() {
             ) : (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-8">
-                  <Target className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground text-center">
-                    아직 1년 목표가 없습니다.
-                  </p>
-                  <Button className="mt-4">
-                    <Plus className="h-4 w-4 mr-2" />
-                    1년 목표 추가하기
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      아직 1년 목표가 없습니다.
+                    </p>
+                    <Button>
+                      <Plus className="h-4 w-4 mr-2" />
+                      1년 목표 추가하기
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
