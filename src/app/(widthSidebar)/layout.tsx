@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/sidebar';
 import { getBreadcrumbData } from '@/constants/sidemenu';
 import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
 
 export default function WidthSidebarLayout({
   children,
@@ -24,7 +25,11 @@ export default function WidthSidebarLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const breadcrumbs = getBreadcrumbData(pathname);
+
+  // breadcrumbs 계산을 메모이제이션
+  const breadcrumbs = useMemo(() => {
+    return getBreadcrumbData(pathname);
+  }, [pathname]);
 
   return (
     <SidebarProvider>
