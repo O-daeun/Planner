@@ -1,3 +1,3 @@
-export default function LifePage() {
+export default function LifeGoalsPage() {
   return <div>LifePage</div>;
 }
