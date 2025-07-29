@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   description: '인생 목표부터 일일 계획까지 체계적으로 관리하는 플래너 앱',
 };
 
+// MSW 설정 (개발 환경에서만)
+if (process.env.NODE_ENV === 'development') {
+  require('../mocks/browser').worker.start({
+    onUnhandledRequest: 'bypass',
+  });
+}
+
 export default function RootLayout({
   children,
 }: {

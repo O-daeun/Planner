@@ -75,6 +75,13 @@
 
 - **Turbopack** (빠른 개발 서버)
 - **Fast Refresh** (핫 리로딩)
+- **MSW (Mock Service Worker)** (API 목업)
+
+### API Mocking
+
+- **MSW**를 사용한 개발 환경 API 목업
+- 목표, 계획, 사용자 관련 API 엔드포인트 구현
+- 실제 백엔드 없이 프론트엔드 개발 가능
 
 ---
 
@@ -87,13 +94,15 @@ planner/
 │   │   ├── layout.tsx          # 메인 레이아웃 (반응형)
 │   │   ├── page.tsx            # 홈페이지
 │   │   ├── goals/page.tsx      # 목표 관리 페이지
-│   │   └── plans/page.tsx      # 계획 관리 페이지
+│   │   ├── plans/page.tsx      # 계획 관리 페이지
+│   │   └── api-test/page.tsx   # API 테스트 페이지
 │   ├── components/
 │   │   ├── layout/
 │   │   │   ├── header/
 │   │   │   │   └── Header.tsx  # 헤더 (반응형)
 │   │   │   └── sidebar/
 │   │   │       └── Sidebar.tsx # 사이드바 (반응형)
+│   │   ├── api-test.tsx        # API 테스트 컴포넌트
 │   │   └── ui/
 │   │       ├── button.tsx      # 버튼 컴포넌트
 │   │       ├── card.tsx        # 카드 컴포넌트
@@ -101,9 +110,14 @@ planner/
 │   │       └── badge.tsx       # 배지 컴포넌트
 │   ├── lib/
 │   │   ├── utils.ts            # 유틸리티 함수
-│   │   └── data.ts             # 샘플 데이터
+│   │   ├── data.ts             # 샘플 데이터
+│   │   └── api.ts              # API 유틸리티 함수
+│   ├── mocks/
+│   │   ├── handlers.ts         # MSW API 핸들러
+│   │   └── browser.ts          # MSW 브라우저 설정
 │   └── types/
 │       └── index.ts            # TypeScript 타입 정의
+├── public/                     # MSW 워커 스크립트
 ├── tailwind.config.ts          # Tailwind 설정
 └── package.json
 ```
@@ -232,6 +246,16 @@ npm start
 - [x] TypeScript 인터페이스 정의
 - [x] 샘플 데이터 구현
 - [x] 날짜 포맷팅 (date-fns)
+
+### ✅ API Mocking
+
+- [x] MSW 설정 및 초기화
+- [x] 목표 관련 API 엔드포인트 (CRUD)
+- [x] 계획 관련 API 엔드포인트 (CRUD)
+- [x] 사용자 관련 API 엔드포인트
+- [x] 인증 관련 API 엔드포인트
+- [x] API 유틸리티 함수 구현
+- [x] API 테스트 컴포넌트 구현
 
 ---
 
