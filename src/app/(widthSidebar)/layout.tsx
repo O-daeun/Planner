@@ -4,7 +4,6 @@ import { AppSidebar } from '@/components/ui/app-sidebar';
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
@@ -16,6 +15,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { getBreadcrumbData } from '@/constants/sidemenu';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
@@ -47,9 +47,12 @@ export default function WidthSidebarLayout({
                       {index === breadcrumbs.length - 1 ? (
                         <BreadcrumbPage>{item.title}</BreadcrumbPage>
                       ) : (
-                        <BreadcrumbLink href={item.url}>
+                        <Link
+                          href={item.url}
+                          className="transition-colors hover:text-foreground"
+                        >
                           {item.title}
-                        </BreadcrumbLink>
+                        </Link>
                       )}
                     </BreadcrumbItem>
                     {index < breadcrumbs.length - 1 && (
